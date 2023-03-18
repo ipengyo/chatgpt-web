@@ -76,7 +76,7 @@ def init_config():
     # 读取配置
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--openai_api_key', type=str, help='API key for OpenAI')
-    parser.add_argument('--openai_api_base', type=str, help='API base for OpenAI')
+    parser.add_argument('--api_base', type=str, help='API base for OpenAI')
     parser.add_argument('--api_model', type=str, default="gpt-3.5-turbo",
                         help='OpenAI API model, default is gpt-3.5-turbo')
     parser.add_argument('--socks_proxy', type=str, default="",
@@ -93,9 +93,9 @@ def init_config():
     openai_api_key = args.openai_api_key
     openai.api_key = args.openai_api_key
 
-    if args.openai_api_base:
-        openai_api_base = args.openai_api_base
-        openai.api_base = args.openai_api_base
+    if args.api_base:
+        api_base = args.api_base
+        openai.api_base = args.api_base
 
     api_model = args.api_model
     if not api_model:
@@ -133,13 +133,13 @@ def init_config():
             logger.error(err)
             raise TypeError(err)
 
-    return massage_store, openai_api_key, openai_api_base, host, port, api_model, socks_proxy, timeout_ms
+    return massage_store, openai_api_key, api_base, host, port, api_model, socks_proxy, timeout_ms
 
 
 if __name__ == "__main__":
-    MASSAGE_STORE, OPENAI_API_KEY, OPENAI_API_BASE, HOST, PORT, API_MODEL, SOCKS_PROXY, TIMEOUT_MS = init_config()
+    MASSAGE_STORE, OPENAI_API_KEY, API_BASE, HOST, PORT, API_MODEL, SOCKS_PROXY, TIMEOUT_MS = init_config()
     logger.info("OPENAI_API_KEY:{}".format(OPENAI_API_KEY))
-    logger.info("OPENAI_API_BASE:{}".format(OPENAI_API_BASE))
+    logger.info("API_BASE:{}".format(API_BASE))
     logger.info("HOST:{}".format(HOST))
     logger.info("PORT:{}".format(PORT))
     logger.info("API_MODEL:{}".format(API_MODEL))
